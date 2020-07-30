@@ -212,7 +212,7 @@ __global__ void advectDyeConcentration(cudaSurfaceObject_t velocity,
 {
 	unsigned int x = blockIdx.x * blockDim.x + threadIdx.x;
 	unsigned int y = blockIdx.y * blockDim.y + threadIdx.y;
-	if (x >= 0 && x < data.dye_width && y < data.dye_height && y >= 0) {
+	if ( x < data.dye_width && y < data.dye_height) {
 		float2 sim_coord = make_float2(x * (data.sim_width-1) / (float)data.dye_width, y * (data.sim_height-1) / (float)data.dye_height);
 		float2 old_pos;
 		//float4 local_color;
@@ -233,7 +233,7 @@ __global__ void applyDye( cudaSurfaceObject_t dye_out,
 {
 	unsigned int x = blockIdx.x * blockDim.x + threadIdx.x;
 	unsigned int y = blockIdx.y * blockDim.y + threadIdx.y;
-	if (x >= 0 && x < width && y < height && y >= 0) 
+	if ( x < width && y < height ) 
 	{
 		float influence = 1.0f * exp(-((x - splat.splat_posx * width)*(x - splat.splat_posx * width) +
 			(y - splat.splat_posy * height)*(y - splat.splat_posy * height)) /

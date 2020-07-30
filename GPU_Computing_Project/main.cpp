@@ -28,6 +28,7 @@ bool checkCudaDevice() {
 		checkCudaErrors(cudaGetDeviceProperties(&properties, i));
 		printf("Device Number: %d\n", i);
 		printf("Device name: %s\n", properties.name);
+		gui::gpu_name = properties.name;
 	}
 	return n;
 }
